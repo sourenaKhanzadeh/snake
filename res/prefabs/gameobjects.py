@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from settings import CC, screen_h, screen_w
+from settings import CC, PS, screen_h, screen_w
 
 class GameObject(ABC):
 
@@ -8,6 +8,7 @@ class GameObject(ABC):
         self._y = y
         self._color = color
         self._w = w
+        self._dx = self._dy = PS.DEFAULT_VELOCITY
 
     @abstractmethod
     def draw(self):
@@ -22,7 +23,7 @@ class GameObject(ABC):
 
     def update(self):
         self.draw()
-        self.update()
+        self.move()
 
 
 
@@ -34,6 +35,10 @@ class GameObject(ABC):
     def color(self):return self._color
     @property
     def w(self):return self._w
+    @property
+    def dx(self):return self._dx
+    @property
+    def dy(self):return self._dy
 
     @x.setter
     def x(self, value):self._x = value
@@ -43,3 +48,7 @@ class GameObject(ABC):
     def color(self, value):self._color = value
     @w.setter
     def w(self, value):self._w = value
+    @dx.setter
+    def dx(self, value):self._dx = value
+    @dy.setter
+    def dy(self, value):self._dy = value

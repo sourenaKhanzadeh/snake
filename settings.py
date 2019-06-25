@@ -1,5 +1,6 @@
 import pygame
 import res.constants.colors as CC
+import res.constants.physics as PS
 
 # ----------------
 # CONFIGURATION
@@ -13,9 +14,5 @@ screen = pygame.display.set_mode((screen_w, screen_h))
 
 
 
-def screen_update():
-    # update the screen
-    pygame.display.update()
-    # bg color
-    screen.fill(CC.WHITE)
 
+from res.prefabs.player import Snake
