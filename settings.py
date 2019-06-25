@@ -1,4 +1,5 @@
 import pygame
+import random
 import res.constants.colors as CC
 import res.constants.physics as PS
 
@@ -16,3 +17,4 @@ screen = pygame.display.set_mode((screen_w, screen_h))
 
 
 from res.prefabs.player import Snake
+from res.prefabs.food import Food

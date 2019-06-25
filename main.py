@@ -4,6 +4,10 @@ scene = []
 
 def init():
     scene.append(Snake())
+    scene.append(Food())
+
+def collision():
+    scene[1].collision(scene[0])
 
 init()
 
@@ -18,6 +22,8 @@ def screen_update():
     for gameObject in scene:
         gameObject.update()
 
+    # check for collisions
+    collision()
 
 
 run = True
