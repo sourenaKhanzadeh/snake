@@ -3,11 +3,15 @@ from settings import *
 
 class Snake(GameObject):
 
-    def __init__(self, x=screen_w // 2, y=screen_h // 2, color=CC.RED, w=0, width=10, height=10):
+    def __init__(self, x=screen_w // 2, y=screen_h // 2, color=CC.RED, w=0, width=PS.SNAKE_SIZE, height=PS.SNAKE_SIZE):
         super().__init__(x, y, color, w)
         self._width =width
         self._height = height
         self.direction = 'r'
+        self.head = [self.x, self.y]
+        self.body = [self.head]
+        self.len = PS.LEN_SNAKE
+        self.margin = 0
 
 
     def move(self):
@@ -23,17 +27,27 @@ class Snake(GameObject):
             self.direction = 'l'
 
         if self.direction == 'r':
-            self.x += self.dx
+            self.body.append([self.x +self.width, self.y])
+            self.x += self.width
         elif self.direction == 'd':
-            self.y += self.dy
+            self.body.append([self.x , self.y + self.height])
+            self.y += self.height
         elif self.direction == 'l':
-            self.x -= self.dx
+            self.body.append([self.x - self.width , self.y])
+            self.x -= self.width
         else:
-            self.y -= self.dy
+            self.body.append([self.x , self.y - self.height])
+            self.y -= self.width
+
+        if len(self.body) > self.len:
+            del self.body[0]
 
     def draw(self):
-        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height), self.w)
+        skin = pygame.Surface((self.width, self.height))
+        skin.fill(self.color)
 
+        for pos in self.body:
+            screen.blit(skin, pos)
 
     @property
     def width(self):return self._width

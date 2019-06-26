@@ -3,27 +3,28 @@ from settings import *
 
 class Food(GameObject):
 
-    def __init__(self, x=screen_w // 2, y=screen_h // 2, color=CC.RED, w=0, width=10, height=10):
+    def __init__(self, x=screen_w // 2, y=screen_h // 2, color=CC.RED, w=0, width=PS.FOOD_SIZE, height=PS.FOOD_SIZE):
         super().__init__(x, y, color, w)
         self._width =width
         self._height = height
-        self.x = random.randint(self.width, screen_w - self.width)
-        self.y = random.randint(self.height, screen_h - self.height)
-
+        self.generator()
 
     def move(self):
-        pass
+        super().move()
 
     def draw(self):
         pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height), self.w)
 
     def collision(self, col):
-        # print(col.x, self.x)
-        if self.x in range(col.x, col.x+col.width) and self.y in range(col.y, col.y+col.height):
+        if self.x -self.width <= col.x <= self.x + self.width \
+                and self.y - self.height <= col.y <= self.y + self.height:
 
-            self.x = random.randint(self.width, screen_w - self.width)
-            self.y = random.randint(self.height, screen_h - self.height)
-            col.width += self.width
+            self.generator()
+            col.len += 1
+
+    def generator(self):
+        self.x = random.randint(self.width, screen_w - self.width)
+        self.y = random.randint(self.height, screen_h - self.height)
 
     @property
     def width(self):return self._width

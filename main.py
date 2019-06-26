@@ -26,10 +26,12 @@ def screen_update():
     collision()
 
 
+clock = pygame.time.Clock()
+
 run = True
 
 while run:
-
+    clock.tick(PS.FPS)
     event = pygame.event.poll()
 
     if event.type == pygame.QUIT:
